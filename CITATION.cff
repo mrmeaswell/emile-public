@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Emile MCP Server"
+version: "2.0.0"
+date-released: "2026-09-25"
+type: software
+repository-code: "https://github.com/mrmeaswell/emile-public"
+authors:
+  - given-names: "Lourenco"
+    family-names: "Tarvin"
+    alias: "Ren Tarvin"
+    affiliation: "Blended Knowledge LLC"
+    email: "rtarvin@blended-knowledge.com"

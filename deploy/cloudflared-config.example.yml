@@ -1,0 +1,12 @@
+# /etc/cloudflared/config.yml — Cloudflare Tunnel in front of Emile.
+# Protect the hostname with a Cloudflare Access application too (see DEPLOY.md):
+# the tunnel carries traffic, Access decides who gets in, and Emile's token is the last lock.
+tunnel: <TUNNEL-UUID>
+credentials-file: /etc/cloudflared/<TUNNEL-UUID>.json
+
+ingress:
+  - hostname: emile.example.com
+    service: http://127.0.0.1:8765      # or http://<emile-lxc-ip>:8765 if cloudflared runs elsewhere
+    originRequest:
+      httpHostHeader: emile.example.com
+  - service: http_status:404

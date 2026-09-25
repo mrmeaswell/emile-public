@@ -1,0 +1,48 @@
+# Emile MCP server (streamable HTTP). Installed by deploy/install.sh.
+[Unit]
+Description=Emile MCP server (Pocket Pedagogy)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=emile
+Group=emile
+WorkingDirectory=/opt/emile
+EnvironmentFile=/etc/emile/emile.env
+# Token is passed as a systemd credential (readable only by this service), never via env.
+LoadCredential=emile-token:/etc/emile/token
+ExecStart=/opt/emile/.venv/bin/python /opt/emile/server.py --transport http
+Restart=on-failure
+RestartSec=5
+
+# --- Resource limits (package §5: cores/memory limits) ---
+MemoryMax=512M
+CPUQuota=100%
+TasksMax=64
+
+# --- Sandboxing: read-only everything, no privilege escalation ---
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadOnlyPaths=/opt/emile
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+AmbientCapabilities=
+UMask=0077
+
+# --- Egress: this service may only talk to localhost (thin server needs no outbound). ---
+# Inside an unprivileged LXC these BPF-based filters may be unavailable (systemd logs a
+# warning and continues), so also deny egress with the Proxmox firewall (see DEPLOY.md).
+# If cloudflared runs on another host, install.sh adds its IP in a drop-in.
+IPAddressDeny=any
+IPAddressAllow=localhost
+
+[Install]
+WantedBy=multi-user.target

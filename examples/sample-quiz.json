@@ -1,0 +1,70 @@
+{
+  "course": "CNT160",
+  "title": "Sample — one item of each type (fails the 35-item count on purpose)",
+  "questions": [
+    {
+      "type": "true_false",
+      "level": "recall",
+      "objective": "220-1202 2.1",
+      "stem": "James Vasquez asks Cascadia to make sure only his account can open the payroll folder on CLIENT01. As the technician on the ticket, you can meet that request with NTFS permissions.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "rationale": "True. NTFS permissions apply per file and folder on NTFS volumes, so the folder's ACL can be limited to James's account."
+    },
+    {
+      "type": "multiple_choice",
+      "level": "application",
+      "objective": "220-1202 2.1",
+      "stem": "James Vasquez can open the purchase-orders folder on CLIENT01 but can't save changes to the order sheet. You're the Cascadia technician on the ticket. Which permission lets him edit files without letting him change permissions?",
+      "options": [
+        "Grant Full Control",
+        "Grant Modify",
+        "Grant Read & Execute",
+        "Take ownership of the folder"
+      ],
+      "answer": [
+        1
+      ],
+      "rationale": "Modify allows editing and deleting without changing permissions. Full Control over-grants; Read & Execute doesn't allow writes; taking ownership is an admin action, not a user fix."
+    },
+    {
+      "type": "multiple_answer",
+      "level": "analysis",
+      "objective": "220-1202 2.1",
+      "stem": "Sarah Caldwell wants all staff to read the shift-schedule files on CLIENT01, but only she and James should edit them. As the Cascadia technician, which two steps meet that goal with the least privilege?",
+      "options": [
+        "Give the Staff group Read",
+        "Give the Owners group Modify",
+        "Give Everyone Full Control",
+        "Give each staff member Modify individually"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "rationale": "Group-based Read for staff and Modify for the owners meets the goal. Everyone/Full Control over-grants; per-user Modify over-grants staff and doesn't scale."
+    },
+    {
+      "type": "fill_blank",
+      "level": "recall",
+      "objective": "220-1202 2.1",
+      "stem": "The Windows file system that supports per-file permissions and encryption is ____.",
+      "answer": [
+        "NTFS"
+      ],
+      "rationale": "NTFS supports ACLs and EFS; FAT32 and exFAT do not."
+    },
+    {
+      "type": "manual",
+      "level": "analysis",
+      "objective": "220-1202 2.1",
+      "stem": "James Vasquez asks you, his Cascadia technician, why he shouldn't just give every MSCB employee Full Control on CLIENT01 'to save time.' Explain the risk in two or three sentences a business owner would find convincing.",
+      "rationale": "Look for: least privilege, accidental deletion or permission changes, and a business-impact framing (lost records, downtime)."
+    }
+  ]
+}

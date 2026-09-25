@@ -1,0 +1,3 @@
+-r requirements.in
+-r requirements-export.in
+pytest==9.1.1
